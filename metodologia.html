@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <title>Metodologia</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <h2>Metodologia da Pesquisa</h2>
+
+    <form id="formMetodologia">
+      <div class="form-group">
+        <label for="abordagem">Qual a Abordagem da Pesquisa?</label>
+        <select id="abordagem" required>
+          <option value="">Selecione</option>
+          <option value="qualitativa">Pesquisa Qualitativa</option>
+          <option value="quantitativa">Pesquisa Quantitativa</option>
+          <option value="quali-quanti">Pesquisa Quali-Quanti</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="natureza">Qual a Natureza da Pesquisa?</label>
+        <select id="natureza" required>
+          <option value="">Selecione</option>
+          <option value="básica">Pesquisa Básica</option>
+          <option value="aplicada">Pesquisa Aplicada</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="objetivo">Qual o Objetivo da Pesquisa?</label>
+        <select id="objetivo" required>
+          <option value="">Selecione</option>
+          <option value="exploratória">Pesquisa Exploratória</option>
+          <option value="descritiva">Pesquisa Descritiva</option>
+          <option value="explicativa">Pesquisa Explicativa</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="procedimento">Quais os Procedimentos Metodológicos Utilizados?</label>
+        <select id="procedimento" required>
+          <option value="">Selecione</option>
+          <option value="experimental">Pesquisa Experimental</option>
+          <option value="bibliográfica">Pesquisa Bibliográfica</option>
+          <option value="documental">Pesquisa Documental</option>
+          <option value="campo">Pesquisa de Campo</option>
+          <option value="ex-post-facto">Pesquisa Ex-Post-Facto</option>
+          <option value="levantamento">Pesquisa de Levantamento</option>
+          <option value="survey">Pesquisa com Survey</option>
+          <option value="estudo de caso">Estudo de Caso</option>
+          <option value="participante">Pesquisa Participante</option>
+          <option value="ação">Pesquisa-Ação</option>
+          <option value="etnográfica">Pesquisa Etnográfica</option>
+          <option value="etnometodológica">Pesquisa Etnometodológica</option>
+        </select>
+      </div>
+
+      <button type="button" onclick="gerarTexto()">Gerar Texto Metodológico</button>
+    </form>
+
+    <div id="resultado"></div>
+
+    <button class="secondary-btn" onclick="window.location.href='metodologia2.html'">
+      Próxima Página
+    </button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

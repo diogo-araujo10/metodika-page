@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Identificação do Problema</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+
+    <h2>Identificação do Problema</h2>
+
+    <form id="formIdentificacao">
+      <div class="form-group">
+        <label for="problema">Descreva a situação observada:</label>
+        <small class="exemplo">
+          Exemplo: Atrasos de entregas, desperdício de insumos, adequação dos postos de trabalho...
+        </small>
+        <textarea id="problema" rows="3" required></textarea>
+      </div>
+
+      <button type="button" onclick="gerarProblema()">Gerar Texto</button>
+    </form>
+
+    <div id="resultado"></div>
+
+    <button class="secondary-btn" onclick="window.location.href='metodologia.html'">
+      Próxima Página
+    </button>
+  </div>
+
+  <script src="script0.js"></script>
+</body>
+</html>

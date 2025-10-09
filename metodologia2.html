@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Coleta de Dados</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+
+    <h2>Coleta de Dados</h2>
+
+    <form id="formColeta">
+      <label for="dataInicio">Escreva o intervalo da coleta de dados:</label><br/>
+      <input type="date" id="dataInicio" name="dataInicio" required /> 
+      até 
+      <input type="date" id="dataFim" name="dataFim" required />
+      <br/><br/>
+
+      <label for="baseDados">Qual base de dados você utilizou?</label>
+      <select id="baseDados" name="baseDados" required>
+        <option value="" disabled selected>Selecione uma opção</option>
+        <option value="Primária">Primária</option>
+        <option value="Secundária">Secundária</option>
+        <option value="Primária e Secundária">Primária e Secundária</option>
+      </select>
+
+      <fieldset>
+        <legend>Como os dados foram coletados?</legend>
+        <label><input type="checkbox" name="coleta" value="Entrevista estruturada"> Entrevista estruturada</label><br/>
+        <label><input type="checkbox" name="coleta" value="Entrevista não estruturada"> Entrevista não estruturada</label><br/>
+        <label><input type="checkbox" name="coleta" value="Entrevista semi-estruturada"> Entrevista semi-estruturada</label><br/>
+        <label><input type="checkbox" name="coleta" value="Observação direta"> Observação direta</label><br/>
+        <label><input type="checkbox" name="coleta" value="Registros fotográficos"> Registros fotográficos</label><br/>
+        <label><input type="checkbox" name="coleta" value="Registros de vídeos"> Registros de vídeos</label><br/>
+        <label><input type="checkbox" name="coleta" value="Visitas in loco"> Visitas in loco</label><br/>
+      </fieldset>
+
+      <br/>
+      <button type="button" onclick="gerarTexto()">Gerar Texto</button>
+    </form>
+
+    <div id="resultado" class="resultado"></div>
+
+    <!-- Botão de próxima página -->
+    <button class="secondary-btn" onclick="window.location.href='metodologia3.html'">
+      Próxima Página
+    </button>
+    
+  </div>
+
+  <script src="script2.js"></script>
+</body>
+</html>

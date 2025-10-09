@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <title>Mapa Mental - Indicadores Agropecuários</title>
+
+  <!-- jsMind CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsmind/style/jsmind.css" />
+
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: #f7f9fc;
+      font-family: sans-serif;
+    }
+
+    #jsmind_container {
+      width: 100%;
+      height: 100vh;
+      display: none; /* começa escondido até gerar o mapa */
+    }
+
+    /* Tela inicial */
+    #start-screen {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      flex-direction: column;
+      background: #eef3fa;
+    }
+    #start-screen h1 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+    #titulo-input {
+      padding: 12px 18px;
+      font-size: 18px;
+      border: 2px solid #0074d9;
+      border-radius: 8px;
+      outline: none;
+      margin-bottom: 15px;
+      width: 320px;
+      max-width: 90%;
+    }
+    #gerar-btn {
+      padding: 12px 25px;
+      font-size: 16px;
+      background: #0074d9;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    #gerar-btn:hover {
+      background: #005fa3;
+    }
+
+    /* estilo dos nós */
+    .jmnode {
+      font-size: 15px;
+      padding: 10px 18px;
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.06);
+      color: #222;
+      max-width: 400px;
+    }
+
+    /* nó raiz */
+    .jmnode[nodeid="root"] {
+      font-size: 22px;
+      font-weight: bold;
+      padding: 25px 40px;
+      border: 3px solid #0074d9;
+      background: #e6f0ff;
+      border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      text-align: center;
+      max-width: 500px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Tela inicial -->
+  <div id="start-screen">
+    <h1>Digite o Título do Fluxograma</h1>
+    <input id="titulo-input" type="text" placeholder="Ex: Análise Bibliométrica na Ergonomia" />
+    <button id="gerar-btn">Gerar Fluxograma</button>
+  </div>
+
+  <!-- Container do mapa -->
+  <div id="jsmind_container"></div>
+
+  <script src="https://cdn.jsdelivr.net/npm/jsmind/js/jsmind.js"></script>
+  <script>
+    // 🔹 Carrega os dados salvos
+    const problema  = localStorage.getItem("problema")  || "Falta de Métricas Mais Detalhadas dos Indicadores";
+    const baseDados = localStorage.getItem("baseDados") || "Secundária";
+    const metodosColetaStr = localStorage.getItem("metodosColeta") || "";
+    const softwares = JSON.parse(localStorage.getItem("softwares")) || ["Microsoft Excel"];
+    const resultado = localStorage.getItem("obtido")    || "Criação de um Dashboard dos Indicadores Agropecuários dos anos de 2011 à 2022";
+
+    // transforma string em array (se houver múltiplos métodos)
+    const metodosColeta = metodosColetaStr.split(",").map(m => m.trim()).filter(m => m);
+
+    document.getElementById("gerar-btn").addEventListener("click", () => {
+      let tituloRaiz = document.getElementById("titulo-input").value.trim();
+      if (!tituloRaiz) {
+        tituloRaiz = "Indicadores Agropecuários";
+      }
+
+      // Esconde tela inicial e mostra o mapa
+      document.getElementById("start-screen").style.display = "none";
+      document.getElementById("jsmind_container").style.display = "block";
+
+      const mind = {
+        "meta": { "name": "indicadores", "author": "Projeto", "version": "2.0" },
+        "format": "node_tree",
+        "data": {
+          "id": "root",
+          "topic": tituloRaiz,
+          "children": [
+            { 
+              "id": "problema", 
+              "topic": "📉 Problema Identificado",
+              "children": [ {"id": "problema_txt", "topic": problema} ]
+            },
+            { 
+              "id": "coleta", 
+              "topic": "📊 Coleta de Dados",
+              "children": [
+                { 
+                  "id": "base_dados", 
+                  "topic": baseDados,
+                  "children": metodosColeta.map((m, i) => ({
+                    "id": `metodo_${i+1}`,
+                    "topic": m
+                  }))
+                }
+              ]
+            },
+            { 
+              "id": "analise", 
+              "topic": "⏳ Análise de Dados",
+              "children": softwares.map((s, i) => ({
+                "id": `analise_soft${i+1}`,
+                "topic": s
+              }))
+            },
+            { 
+              "id": "resultado", 
+              "topic": "✅ Resultado",
+              "children": [ {"id": "resultado_txt", "topic": resultado} ]
+            }
+          ]
+        }
+      };
+
+      const options = {
+        container: 'jsmind_container',
+        theme: 'primary',
+        editable: false,
+        layout: {
+          hspace: 140,
+          vspace: 80
+        }
+      };
+
+      const jm = new jsMind(options);
+      jm.show(mind);
+    });
+  </script>
+</body>
+</html>

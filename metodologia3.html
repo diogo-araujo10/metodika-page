@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Análise dos Dados</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+
+    <h2>Análise dos Dados</h2>
+
+    <form id="formAnalise">
+      <label for="numSoftwares">Quantos Softwares/Apps Foram Utilizados?</label>
+      <input type="number" id="numSoftwares" name="numSoftwares" min="1" required />
+
+      <div id="softwaresContainer"></div>
+
+      <label for="numParametros">Quantos Parâmetros Foram Analisados?</label>
+      <input type="number" id="numParametros" name="numParametros" min="1" required />
+
+      <div id="parametrosContainer"></div>
+
+      <br/>
+      <button type="button" onclick="gerarTextoAnalise()">Gerar Análise de Dados</button>
+    </form>
+
+    <div id="resultado" class="resultado"></div>
+
+    <!-- Botão de próxima página -->
+    <button class="secondary-btn" onclick="window.location.href='metodologia4.html'">
+      Próxima Página
+    </button>
+    
+  </div>
+
+  <script src="script3.js"></script>
+</body>
+</html>
