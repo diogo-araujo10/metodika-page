@@ -6,6 +6,9 @@
 
   <!-- jsMind CSS -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/jsmind/style/jsmind.css" />
+  
+  <!-- html2canvas para captura mais confiável -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <style>
     html, body {
@@ -19,6 +22,33 @@
       width: 100%;
       height: 100vh;
       display: none; /* começa escondido até gerar o mapa */
+      background: white !important; /* fundo branco para o download */
+      position: relative;
+    }
+
+    /* Container principal para captura */
+    #capture-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      background: white;
+    }
+
+    /* Footer para a referência */
+    .jmind-footer {
+      position: absolute;
+      bottom: 20px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 14px;
+      color: #333;
+      padding: 10px;
+      background: white;
+      border-top: 1px solid #ddd;
+      z-index: 100;
+      font-family: sans-serif;
+      display: none; /* só aparece no download */
     }
 
     /* Tela inicial */
@@ -67,6 +97,7 @@
       box-shadow: 0 2px 6px rgba(0,0,0,0.06);
       color: #222;
       max-width: 400px;
+      border: 1px solid #e0e0e0;
     }
 
     /* nó raiz */
@@ -81,6 +112,12 @@
       text-align: center;
       max-width: 500px;
     }
+
+    /* Linhas do mapa mental com cor mais escura */
+    jmnode > jmnodes > jmnode > jmexpander,
+    jmnode > jmnodes > jmnode {
+      border-color: #666 !important;
+    }
   </style>
 </head>
 <body>
@@ -92,9 +129,16 @@
   </div>
 
   <!-- Container do mapa -->
-  <div id="jsmind_container"></div>
+  <div id="jsmind_container">
+    <div id="capture-container">
+      <div class="jmind-footer" id="jmind_footer">
+        PEREIRA, Daniel Augusto de Moura; ARAÚJO, Diogo Sebastião Pereira; SANTOS, Jamily Ferreira dos; DINIZ, Bruno Pereira. Nome do Negócio (v1) 2025. 2025
+      </div>
+    </div>
+  </div>
 
   <script src="https://cdn.jsdelivr.net/npm/jsmind/js/jsmind.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jsmind/js/jsmind.screenshot.js"></script>
   <script>
     // 🔹 Carrega os dados salvos
     const problema  = localStorage.getItem("problema")  || "Falta de Métricas Mais Detalhadas dos Indicadores";
@@ -106,72 +150,180 @@
     // transforma string em array (se houver múltiplos métodos)
     const metodosColeta = metodosColetaStr.split(",").map(m => m.trim()).filter(m => m);
 
+    let jm; // variável global para o mapa mental
+
     document.getElementById("gerar-btn").addEventListener("click", () => {
-      let tituloRaiz = document.getElementById("titulo-input").value.trim();
-      if (!tituloRaiz) {
-        tituloRaiz = "Indicadores Agropecuários";
-      }
+        let tituloRaiz = document.getElementById("titulo-input").value.trim();
+        if (!tituloRaiz) {
+            tituloRaiz = "Indicadores Agropecuários";
+        }
 
-      // Esconde tela inicial e mostra o mapa
-      document.getElementById("start-screen").style.display = "none";
-      document.getElementById("jsmind_container").style.display = "block";
+        // Esconde tela inicial e mostra o mapa
+        document.getElementById("start-screen").style.display = "none";
+        document.getElementById("jsmind_container").style.display = "block";
 
-      const mind = {
-        "meta": { "name": "indicadores", "author": "Projeto", "version": "2.0" },
-        "format": "node_tree",
-        "data": {
-          "id": "root",
-          "topic": tituloRaiz,
-          "children": [
-            { 
-              "id": "problema", 
-              "topic": "📉 Problema Identificado",
-              "children": [ {"id": "problema_txt", "topic": problema} ]
-            },
-            { 
-              "id": "coleta", 
-              "topic": "📊 Coleta de Dados",
-              "children": [
-                { 
-                  "id": "base_dados", 
-                  "topic": baseDados,
-                  "children": metodosColeta.map((m, i) => ({
-                    "id": `metodo_${i+1}`,
-                    "topic": m
-                  }))
-                }
-              ]
-            },
-            { 
-              "id": "analise", 
-              "topic": "⏳ Análise de Dados",
-              "children": softwares.map((s, i) => ({
-                "id": `analise_soft${i+1}`,
-                "topic": s
-              }))
-            },
-            { 
-              "id": "resultado", 
-              "topic": "✅ Resultado",
-              "children": [ {"id": "resultado_txt", "topic": resultado} ]
+        const mind = {
+            "meta": { "name": "indicadores", "author": "Projeto", "version": "2.0" },
+            "format": "node_tree",
+            "data": {
+                "id": "root",
+                "topic": tituloRaiz,
+                "children": [
+                    { 
+                        "id": "problema", 
+                        "topic": "📉 Problema Identificado",
+                        "children": [ {"id": "problema_txt", "topic": problema} ]
+                    },
+                    { 
+                        "id": "coleta", 
+                        "topic": "📊 Coleta de Dados",
+                        "children": [
+                            { 
+                                "id": "base_dados", 
+                                "topic": baseDados,
+                                "children": metodosColeta.map((m, i) => ({
+                                    "id": `metodo_${i+1}`,
+                                    "topic": m
+                                }))
+                            }
+                        ]
+                    },
+                    { 
+                        "id": "analise", 
+                        "topic": "⏳ Análise de Dados",
+                        "children": softwares.map((s, i) => ({
+                            "id": `analise_soft${i+1}`,
+                            "topic": s
+                        }))
+                    },
+                    { 
+                        "id": "resultado", 
+                        "topic": "✅ Resultado",
+                        "children": [ {"id": "resultado_txt", "topic": resultado} ]
+                    }
+                ]
             }
-          ]
-        }
-      };
+        };
 
-      const options = {
-        container: 'jsmind_container',
-        theme: 'primary',
-        editable: false,
-        layout: {
-          hspace: 140,
-          vspace: 80
-        }
-      };
+        const options = {
+            container: 'capture-container',
+            theme: 'primary',
+            editable: false,
+            layout: {
+                hspace: 140,
+                vspace: 80
+            }
+        };
 
-      const jm = new jsMind(options);
-      jm.show(mind);
+        jm = new jsMind(options);
+        jm.show(mind);
+
+        // 🔹 Adiciona botão de download após gerar o mapa
+        adicionarBotaoDownload();
     });
+
+    // 🔹 Função para adicionar botão de download
+    function adicionarBotaoDownload() {
+        // Remove botão anterior se existir
+        const botaoAnterior = document.getElementById('download-btn');
+        if (botaoAnterior) {
+            botaoAnterior.remove();
+        }
+
+        // Cria o botão de download
+        const downloadBtn = document.createElement('button');
+        downloadBtn.id = 'download-btn';
+        downloadBtn.innerHTML = '📥 DOWNLOAD DA IMAGEM';
+        downloadBtn.style.position = 'fixed';
+        downloadBtn.style.top = '20px';
+        downloadBtn.style.right = '20px';
+        downloadBtn.style.zIndex = '1000';
+        downloadBtn.style.padding = '12px 20px';
+        downloadBtn.style.background = '#28a745';
+        downloadBtn.style.color = 'white';
+        downloadBtn.style.border = 'none';
+        downloadBtn.style.borderRadius = '8px';
+        downloadBtn.style.cursor = 'pointer';
+        downloadBtn.style.fontSize = '16px';
+        downloadBtn.style.boxShadow = '0 4px 12px rgba(0,0,0,0.3)';
+        downloadBtn.style.transition = 'all 0.3s';
+
+        downloadBtn.onmouseover = function() {
+            this.style.background = '#218838';
+            this.style.transform = 'translateY(-2px)';
+        };
+        downloadBtn.onmouseout = function() {
+            this.style.background = '#28a745';
+            this.style.transform = 'translateY(0)';
+        };
+
+        // Adiciona evento de clique
+        downloadBtn.addEventListener('click', baixarComoImagem);
+
+        document.body.appendChild(downloadBtn);
+    }
+
+    // 🔹 Função para baixar como imagem usando html2canvas
+    function baixarComoImagem() {
+        if (!jm) {
+            alert('Erro: Mapa mental não foi carregado corretamente.');
+            return;
+        }
+
+        try {
+            // Mostra loading
+            const downloadBtn = document.getElementById('download-btn');
+            downloadBtn.innerHTML = '⏳ Gerando Imagem...';
+            downloadBtn.disabled = true;
+
+            // Mostra o footer com a referência
+            const footer = document.getElementById('jmind_footer');
+            footer.style.display = 'block';
+
+            // Pequeno delay para garantir que o footer foi renderizado
+            setTimeout(() => {
+                // Usa html2canvas para capturar todo o container
+                html2canvas(document.getElementById('capture-container'), {
+                    backgroundColor: '#ffffff',
+                    scale: 2, // Melhor qualidade
+                    useCORS: true,
+                    logging: false
+                }).then(canvas => {
+                    // Converte o canvas para imagem e faz download
+                    const link = document.createElement('a');
+                    link.download = 'mapa-mental-' + new Date().getTime() + '.png';
+                    link.href = canvas.toDataURL('image/png', 1.0);
+                    link.click();
+
+                    // Esconde o footer após o download
+                    footer.style.display = 'none';
+                    
+                    // Restaura o botão após o download
+                    downloadBtn.innerHTML = '📥 DOWNLOAD DA IMAGEM';
+                    downloadBtn.disabled = false;
+                }).catch(error => {
+                    console.error('Erro ao capturar imagem:', error);
+                    alert('Erro ao gerar a imagem. Tente novamente.');
+                    
+                    // Esconde o footer em caso de erro
+                    footer.style.display = 'none';
+                    downloadBtn.innerHTML = '📥 DOWNLOAD DA IMAGEM';
+                    downloadBtn.disabled = false;
+                });
+            }, 500);
+
+        } catch (error) {
+            console.error('Erro ao gerar imagem:', error);
+            alert('Erro ao gerar a imagem. Tente novamente.');
+            
+            // Esconde o footer em caso de erro
+            document.getElementById('jmind_footer').style.display = 'none';
+            
+            const downloadBtn = document.getElementById('download-btn');
+            downloadBtn.innerHTML = '📥 DOWNLOAD DA IMAGEM';
+            downloadBtn.disabled = false;
+        }
+    }
   </script>
 </body>
 </html>

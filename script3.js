@@ -72,9 +72,25 @@ function gerarTextoAnalise() {
     return;
   }
 
+  // 🔹 Formatar softwares com "e" antes do último
+  let softwaresFormatados;
+  if (softwares.length === 1) {
+    softwaresFormatados = softwares[0];
+  } else {
+    softwaresFormatados = softwares.slice(0, -1).join(", ") + " e " + softwares.slice(-1);
+  }
+
+  // 🔹 Formatar parâmetros com "e" antes do último
+  let parametrosFormatados;
+  if (parametros.length === 1) {
+    parametrosFormatados = parametros[0];
+  } else {
+    parametrosFormatados = parametros.slice(0, -1).join(", ") + " e " + parametros.slice(-1);
+  }
+
   const texto =
-    `A análise dos dados foi realizada utilizando os softwares/apps ${softwares.join(", ")}. ` +
-    `Foram considerados ${numParam} parâmetros principais: ${parametros.join(", ")}. ` +
+    `A análise dos dados foi realizada utilizando os softwares/apps ${softwaresFormatados}. ` +
+    `Foram considerados ${numParam} parâmetros principais: ${parametrosFormatados}. ` +
     `Essa análise possibilitou interpretar os resultados de forma mais precisa, garantindo maior confiabilidade às conclusões do estudo.`;
 
   const resultado = document.getElementById("resultado");

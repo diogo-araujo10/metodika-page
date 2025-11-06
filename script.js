@@ -13,7 +13,7 @@ function gerarTexto() {
     abordagem: {
       qualitativa: "centrada na compreensão de fenômenos subjetivos.",
       quantitativa: "mensurar e analisar a estatística dos dados.",
-      "quali-quanti": "que combina elementos das abordagens qualitativa e quantitativa.",
+      "quali-quanti": "combinar elementos das abordagens qualitativa e quantitativa.",
     },
     natureza: {
       básica: "gerar novos conhecimentos, sem aplicação imediata.",
@@ -44,7 +44,7 @@ function gerarTexto() {
     `A presente pesquisa adota uma abordagem ${abordagem}, caracterizada por ${definicoes.abordagem[abordagem]} ` +
     `Quanto à sua natureza, trata-se de uma investigação ${natureza}, cuja finalidade é ${definicoes.natureza[natureza]} ` +
     `Em relação aos objetivos, a pesquisa classifica-se como ${objetivo}, pois ${definicoes.objetivo[objetivo]} ` +
-    `Para o alcance desses objetivos, foram adotados procedimentos metodológicos compatíveis com a proposta do estudo, sendo conduzida por meio de ${procedimento}, o qual se define por ${definicoes.procedimento[procedimento]}.`;
+    `Para o alcance desses objetivos, foram adotados procedimentos metodológicos compatíveis com a proposta do estudo, sendo conduzida por meio de pesquisa ${procedimento}, o qual se define por ${definicoes.procedimento[procedimento]}.`;
 
   const resultado = document.getElementById("resultado");
   resultado.innerText = texto;

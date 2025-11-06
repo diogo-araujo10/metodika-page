@@ -17,3 +17,21 @@ Esse cenário justifica a necessidade de um estudo mais aprofundado para compree
    // 🔹 Salva no localStorage
   localStorage.setItem("problema", problema);
 }
+
+// Mostrar modal ao carregar a página
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('modalInstrucoes').style.display = 'flex';
+});
+
+// Função para fechar o modal
+function fecharModal() {
+  document.getElementById('modalInstrucoes').style.display = 'none';
+}
+
+// Fechar modal clicando fora
+window.addEventListener('click', function(event) {
+  const modal = document.getElementById('modalInstrucoes');
+  if (event.target === modal) {
+    fecharModal();
+  }
+});
