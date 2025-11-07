@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resumo Completo</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .texto-gerado {
+      background: #f8f9fa;
+      border-left: 4px solid #007bff;
+      padding: 15px;
+      margin: 15px 0;
+      border-radius: 4px;
+      line-height: 1.6;
+    }
+    .secao {
+      margin-bottom: 30px;
+      padding: 20px;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+    }
+    .secao h3 {
+      color: #495057;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+      margin-top: 0;
+    }
+    .aviso {
+      background: #fff3cd;
+      border: 1px solid #ffeaa7;
+      color: #856404;
+      padding: 15px;
+      border-radius: 4px;
+      margin: 20px 0;
+    }
+    .botoes-acao {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+      margin-top: 30px;
+      align-items: center;
+    }
+    .imprimir-btn {
+      background: transparent;
+      color: #6c757d;
+      border: 2px solid #6c757d;
+      padding: 12px 24px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 16px;
+      width: 200px;
+      transition: all 0.3s ease;
+    }
+    .imprimir-btn:hover {
+      background: #007bff;
+      color: white;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    /* 🔹 CSS PARA IMPRESSÃO - CORRETO */
+    @media print {
+      /* Esconde elementos desnecessários na impressão */
+      .botoes-acao, .aviso, .secondary-btn, .imprimir-btn {
+        display: none !important;
+      }
+      
+      /* Melhora o layout para impressão */
+      body {
+        background: white !important;
+        font-size: 14pt;
+        line-height: 1.4;
+        color: #000 !important;
+      }
+      
+      .container {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        box-shadow: none !important;
+      }
+      
+      /* Melhora as seções para impressão */
+      .secao {
+        border: 2px solid #000 !important;
+        margin-bottom: 25px !important;
+        page-break-inside: avoid;
+        break-inside: avoid;
+        background: white !important;
+      }
+      
+      .texto-gerado {
+        background: white !important;
+        border-left: 4px solid #000 !important;
+        color: #000 !important;
+        font-size: 12pt !important;
+        padding: 15px !important;
+      }
+      
+      .secao h3 {
+        color: #000 !important;
+        border-bottom: 2px solid #000 !important;
+        font-size: 16pt !important;
+      }
+      
+      /* Remove cores e sombras para economizar tinta */
+      * {
+        box-shadow: none !important;
+        text-shadow: none !important;
+      }
+      
+      /* Garante que o conteúdo ocupe toda a largura */
+      html, body {
+        width: 100%;
+        height: auto;
+        margin: 0 !important;
+        padding: 0 !important;
+      }
+      
+      /* Melhora os títulos */
+      h2 {
+        color: #000 !important;
+        text-align: center;
+        font-size: 20pt !important;
+        margin-bottom: 30px !important;
+        border-bottom: 3px solid #000 !important;
+        padding-bottom: 10px !important;
+      }
+      
+      /* Adiciona margens para a impressão */
+      @page {
+        margin: 2cm;
+      }
+      
+      /* Evita quebra de títulos sozinhos no final da página */
+      h2, h3 {
+        page-break-after: avoid;
+      }
+      
+      /* Remove bordas arredondadas */
+      .secao, .texto-gerado {
+        border-radius: 0 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Resumo Completo da Pesquisa</h2>
+    
+    <div class="aviso">
+      <strong>⚠️ Atenção:</strong> Esta página mostra todos os textos gerados durante o preenchimento do formulário.
+    </div>
+
+    <div class="secao">
+      <h3>🔍 Identificação do Problema</h3>
+      <div id="resumoProblema" class="texto-gerado">
+        <!-- Texto gerado na página 1 -->
+      </div>
+    </div>
+
+    <div class="secao">
+      <h3>📚 Metodologia da Pesquisa</h3>
+      <div id="resumoMetodologia" class="texto-gerado">
+        <!-- Texto gerado na página 2 -->
+      </div>
+    </div>
+
+    <div class="secao">
+      <h3>📅 Coleta de Dados</h3>
+      <div id="resumoColeta" class="texto-gerado">
+        <!-- Texto gerado na página 3 -->
+      </div>
+    </div>
+
+    <div class="secao">
+      <h3>💻 Análise dos Dados</h3>
+      <div id="resumoAnalise" class="texto-gerado">
+        <!-- Texto gerado na página 4 -->
+      </div>
+    </div>
+
+    <div class="secao">
+      <h3>🎯 Resultados Obtidos</h3>
+      <div id="resumoResultados" class="texto-gerado">
+        <!-- Texto gerado na página 5 -->
+      </div>
+    </div>
+
+    <div class="botoes-acao">
+      <button class="imprimir-btn" onclick="imprimirResumo()">
+        🖨️ Imprimir Resumo
+      </button>
+      
+      <button class="secondary-btn" onclick="window.location.href='resultadofinal.html'">
+        Próxima Página
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Carrega todos os textos ao abrir a página
+    document.addEventListener('DOMContentLoaded', function() {
+      carregarResumos();
+    });
+
+    function carregarResumos() {
+      // 1. Identificação do Problema - APENAS O TEXTO FORMATADO
+      const problema = localStorage.getItem('problema');
+      if (problema) {
+        document.getElementById('resumoProblema').innerHTML = 
+          `O problema identificado nesta pesquisa está relacionado a: ${problema}. 
+           Esse cenário justifica a necessidade de um estudo mais aprofundado para compreender 
+           suas causas e buscar soluções.`;
+      } else {
+        document.getElementById('resumoProblema').innerHTML = 
+          '<span style="color: #6c757d;">Nenhum problema foi identificado ainda.</span>';
+      }
+
+      // 2. Metodologia - APENAS O TEXTO FORMATADO
+      const metodologia = localStorage.getItem('textoMetodologia');
+      if (metodologia) {
+        document.getElementById('resumoMetodologia').textContent = metodologia;
+      } else {
+        document.getElementById('resumoMetodologia').innerHTML = 
+          '<span style="color: #6c757d;">Metodologia não definida ainda.</span>';
+      }
+
+      // 3. Coleta de Dados - APENAS O TEXTO FORMATADO
+      const coleta = localStorage.getItem('textoColeta');
+      if (coleta) {
+        document.getElementById('resumoColeta').textContent = coleta;
+      } else {
+        document.getElementById('resumoColeta').innerHTML = 
+          '<span style="color: #6c757d;">Dados de coleta não informados ainda.</span>';
+      }
+
+      // 4. Análise dos Dados - APENAS O TEXTO FORMATADO
+      const softwares = JSON.parse(localStorage.getItem('softwares') || '[]');
+      const parametros = JSON.parse(localStorage.getItem('parametros') || '[]');
+      
+      if (softwares.length > 0 && parametros.length > 0) {
+        const softwaresFormatados = softwares.length === 1 ? 
+          softwares[0] : softwares.slice(0, -1).join(", ") + " e " + softwares.slice(-1);
+        const parametrosFormatados = parametros.length === 1 ? 
+          parametros[0] : parametros.slice(0, -1).join(", ") + " e " + parametros.slice(-1);
+        
+        document.getElementById('resumoAnalise').innerHTML = 
+          `A análise dos dados foi realizada utilizando os softwares/apps ${softwaresFormatados}. 
+           Foram considerados ${parametros.length} parâmetros principais: ${parametrosFormatados}. 
+           Essa análise possibilitou interpretar os resultados de forma mais precisa, 
+           garantindo maior confiabilidade às conclusões do estudo.`;
+      } else {
+        document.getElementById('resumoAnalise').innerHTML = 
+          '<span style="color: #6c757d;">Análise de dados não realizada ainda.</span>';
+      }
+
+      // 5. Resultados - APENAS O TEXTO FORMATADO
+      const obtido = localStorage.getItem('obtido');
+      if (obtido) {
+        document.getElementById('resumoResultados').innerHTML = 
+          `Dessa forma, o resultado alcançado foi: ${obtido}`;
+      } else {
+        document.getElementById('resumoResultados').innerHTML = 
+          '<span style="color: #6c757d;">Resultados não informados ainda.</span>';
+      }
+    }
+
+    function imprimirResumo() {
+      window.print();
+    }
+  </script>
+</body>
+</html>

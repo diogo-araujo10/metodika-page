@@ -11,6 +11,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
   <style>
+    /* Animação apenas para a caixinha modal */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     html, body {
       height: 100%;
       margin: 0;
@@ -59,6 +65,7 @@
       height: 100vh;
       flex-direction: column;
       background: #eef3fa;
+      position: relative;
     }
     #start-screen h1 {
       margin-bottom: 20px;
@@ -86,6 +93,63 @@
     }
     #gerar-btn:hover {
       background: #005fa3;
+    }
+
+    /* Modal - Estilo igual à página de Identificação do Problema */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.5);
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-content {
+      background-color: #fefefe;
+      margin: auto;
+      padding: 30px;
+      border: 1px solid #888;
+      border-radius: 8px;
+      width: 90%;
+      max-width: 600px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      animation: fadeIn 0.4s ease-out; /* Apenas a caixinha tem animação */
+    }
+
+    .close {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: color 0.3s;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: black;
+      text-decoration: none;
+    }
+
+    .instrucoes ul {
+      padding-left: 20px;
+    }
+
+    .instrucoes li {
+      margin-bottom: 12px;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+
+    .dica {
+      margin-top: 15px;
+      font-style: italic;
+      color: #666;
     }
 
     /* estilo dos nós */
@@ -121,11 +185,25 @@
   </style>
 </head>
 <body>
+  <!-- Modal de Instruções - Igual à página de Identificação do Problema -->
+  <div id="modalInstrucoes" class="modal">
+    <div class="modal-content">
+      <span class="close" onclick="fecharModal()">&times;</span>
+      <h3>💡 IMPORTANTE</h3>
+      <div class="instrucoes">
+        <ul>
+          <li>Antes de baixar a imagem, ajuste o zoom da página (Ctrl + Scroll) para enquadrar todo o mapa mental na tela;</li>
+          <li>Isso garante que a imagem ficará bem organizada e completa, mostrando toda a estrutura do fluxo metodológico.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
   <!-- Tela inicial -->
   <div id="start-screen">
-    <h1>Digite o Título do Fluxograma</h1>
+    <h1>Digite o Título do Fluxo Metodológico</h1>
     <input id="titulo-input" type="text" placeholder="Ex: Análise Bibliométrica na Ergonomia" />
-    <button id="gerar-btn">Gerar Fluxograma</button>
+    <button id="gerar-btn">Gerar Fluxo Metodológico</button>
   </div>
 
   <!-- Container do mapa -->
@@ -152,13 +230,31 @@
 
     let jm; // variável global para o mapa mental
 
+    // Mostrar modal ao carregar a página
+    document.addEventListener('DOMContentLoaded', function() {
+      document.getElementById('modalInstrucoes').style.display = 'flex';
+    });
+
+    // Função para fechar o modal
+    function fecharModal() {
+      document.getElementById('modalInstrucoes').style.display = 'none';
+    }
+
+    // Fechar modal clicando fora
+    window.addEventListener('click', function(event) {
+      const modal = document.getElementById('modalInstrucoes');
+      if (event.target === modal) {
+        fecharModal();
+      }
+    });
+
     document.getElementById("gerar-btn").addEventListener("click", () => {
         let tituloRaiz = document.getElementById("titulo-input").value.trim();
         if (!tituloRaiz) {
             tituloRaiz = "Indicadores Agropecuários";
         }
 
-        // Esconde tela inicial e mostra o mapa
+        // Esconde tela inicial e mostra o mapa (sem animação)
         document.getElementById("start-screen").style.display = "none";
         document.getElementById("jsmind_container").style.display = "block";
 

@@ -49,4 +49,6 @@ function gerarTexto() {
   const resultado = document.getElementById("resultado");
   resultado.innerText = texto;
   resultado.style.display = "block";
+
+  localStorage.setItem("textoMetodologia", texto);
 }

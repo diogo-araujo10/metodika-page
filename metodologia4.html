@@ -17,7 +17,9 @@
         <small class="exemplo">
           Exemplo: Análise do estudo e conclusão do projeto...
         </small>
-        <textarea id="obtido" rows="3" required></textarea>
+        <textarea id="obtido" rows="3" maxlength="35" 
+          placeholder="Máximo 35 caracteres" required></textarea>
+        </textarea>
       </div>
 
       <button type="button" onclick="gerarObtido()">Gerar Texto</button>
@@ -25,7 +27,7 @@
 
     <div id="resultado"></div>
 
-    <button class="secondary-btn" onclick="window.location.href='resultadofinal.html'">
+    <button class="secondary-btn" onclick="window.location.href='textofinal.html'">
       Próxima Página
     </button>
   </div>

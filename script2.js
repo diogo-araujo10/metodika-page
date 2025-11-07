@@ -64,4 +64,6 @@ function gerarTexto() {
     const metodosColeta = Array.from(checkboxes).map(c => c.value).join(", ");
     localStorage.setItem("metodosColeta", metodosColeta);
   }
+
+  localStorage.setItem("textoColeta", textoFinal);
 }
