@@ -67,3 +67,48 @@ function gerarTexto() {
 
   localStorage.setItem("textoColeta", textoFinal);
 }
+
+// Função para limpar dados da coleta quando o usuário navegar sem preencher
+function limparDadosColeta() {
+  localStorage.removeItem('textoColeta');
+  localStorage.removeItem('baseDados');
+  localStorage.removeItem('metodosColeta');
+  console.log('Dados de coleta limpos!');
+}
+
+// Modificar o botão de próxima página para limpar os dados antes de navegar
+document.addEventListener('DOMContentLoaded', function() {
+  const btnProxima = document.querySelector('.secondary-btn');
+  if (btnProxima) {
+    // Remover o onclick direto do HTML e adicionar event listener
+    btnProxima.onclick = null;
+    btnProxima.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Verificar se o formulário foi preenchido
+      const dataInicio = document.getElementById("dataInicio").value;
+      const dataFim = document.getElementById("dataFim").value;
+      const baseDados = document.getElementById("baseDados").value;
+      const checkboxes = document.querySelectorAll("input[name='coleta']:checked");
+      
+      // Se não preencheu nada, limpa os dados
+      if (!dataInicio && !dataFim && !baseDados && checkboxes.length === 0) {
+        limparDadosColeta();
+      }
+      
+      window.location.href = 'metodologia3.html';
+    });
+  }
+});
+
+// Também limpar dados se o usuário recarregar a página sem preencher
+window.addEventListener('beforeunload', function() {
+  const dataInicio = document.getElementById("dataInicio").value;
+  const dataFim = document.getElementById("dataFim").value;
+  const baseDados = document.getElementById("baseDados").value;
+  const checkboxes = document.querySelectorAll("input[name='coleta']:checked");
+  
+  if (!dataInicio && !dataFim && !baseDados && checkboxes.length === 0) {
+    limparDadosColeta();
+  }
+});

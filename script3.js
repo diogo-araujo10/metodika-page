@@ -25,12 +25,13 @@ numSoftwaresInput.addEventListener("input", () => {
   }
 });
 
-// 🔹 Gera os campos de parâmetros dinamicamente
+// 🔹 Gera os campos de parâmetros dinamicamente (permite 0)
 numParametrosInput.addEventListener("input", () => {
   parametrosContainer.innerHTML = "";
   const num = parseInt(numParametrosInput.value);
 
-  if (!isNaN(num) && num > 0) {
+  // Permite 0, 1, 2, etc...
+  if (!isNaN(num) && num >= 0) {
     for (let i = 1; i <= num; i++) {
       const label = document.createElement("label");
       label.textContent = `Parâmetro ${i}:`;
@@ -50,7 +51,8 @@ function gerarTextoAnalise() {
   const numSoft = parseInt(numSoftwaresInput.value);
   const numParam = parseInt(numParametrosInput.value);
 
-  if (isNaN(numSoft) || numSoft <= 0 || isNaN(numParam) || numParam <= 0) {
+  // 🔹 Validação ajustada para permitir 0 parâmetros
+  if (isNaN(numSoft) || numSoft <= 0 || isNaN(numParam) || numParam < 0) {
     alert("Por favor, preencha todas as informações antes de gerar o texto.");
     return;
   }
@@ -67,30 +69,32 @@ function gerarTextoAnalise() {
     if (input && input.value.trim() !== "") parametros.push(input.value.trim());
   }
 
-  if (softwares.length !== numSoft || parametros.length !== numParam) {
+  if (softwares.length !== numSoft || (numParam > 0 && parametros.length !== numParam)) {
     alert("Preencha todos os campos antes de continuar.");
     return;
   }
 
-  // 🔹 Formatar softwares com "e" antes do último
-  let softwaresFormatados;
+  // 🔹 CORREÇÃO DO PLURAL/SINGULAR PARA SOFTWARES
+  let textoSoftwares;
   if (softwares.length === 1) {
-    softwaresFormatados = softwares[0];
+    textoSoftwares = `o software/app ${softwares[0]}`;
   } else {
-    softwaresFormatados = softwares.slice(0, -1).join(", ") + " e " + softwares.slice(-1);
+    textoSoftwares = `os softwares/apps ${softwares.slice(0, -1).join(", ") + " e " + softwares.slice(-1)}`;
   }
 
-  // 🔹 Formatar parâmetros com "e" antes do último
-  let parametrosFormatados;
-  if (parametros.length === 1) {
-    parametrosFormatados = parametros[0];
+  // 🔹 CORREÇÃO DO PLURAL/SINGULAR E CASO 0 PARÂMETROS
+  let textoParametros;
+  if (numParam === 0) {
+    textoParametros = "não foram definidos parâmetros específicos para análise";
+  } else if (parametros.length === 1) {
+    textoParametros = `foi considerado 1 parâmetro principal: ${parametros[0]}`;
   } else {
-    parametrosFormatados = parametros.slice(0, -1).join(", ") + " e " + parametros.slice(-1);
+    textoParametros = `foram considerados ${numParam} parâmetros principais: ${parametros.slice(0, -1).join(", ") + " e " + parametros.slice(-1)}`;
   }
 
   const texto =
-    `A análise dos dados foi realizada utilizando os softwares/apps ${softwaresFormatados}. ` +
-    `Foram considerados ${numParam} parâmetros principais: ${parametrosFormatados}. ` +
+    `A análise dos dados foi realizada utilizando ${textoSoftwares}. ` +
+    `${textoParametros.charAt(0).toUpperCase() + textoParametros.slice(1)}. ` +
     `Essa análise possibilitou interpretar os resultados de forma mais precisa, garantindo maior confiabilidade às conclusões do estudo.`;
 
   const resultado = document.getElementById("resultado");

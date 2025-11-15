@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>METODIKA Beta (v1)</title>
+  <title>METODIKA (V1)</title>
 
   <style>
     :root{
@@ -202,8 +202,8 @@
   <div class="container" role="main" aria-labelledby="titulo">
     <img src="img/logoo.png" alt="Logo Metodika" class="logo-principal">
     <h1 id="titulo">METODIKA</h1>
-    <p>Seja Bem-vindo</p>
-    <button type="button" onclick="window.location.href='metodologia0.html'">Começar</button>
+    <p>Ferramenta Online de Apoio ao Desenvolvimento de Metodologia Científica</p>
+    <button type="button" id="btn-comecar">Começar</button>
   </div>
 
   <!-- CARROSSEL APRIMORADO -->
@@ -275,6 +275,51 @@
         document.querySelectorAll('.logos::before'); // noop
       }
     })();
+
+    // 🔹 FUNÇÃO PARA LIMPAR DADOS E INICIAR NOVO FLUXO
+    function limparEIniciar() {
+      console.log('🧹 Limpando dados anteriores do localStorage...');
+      
+      // Remove todos os dados relacionados ao fluxo metodológico
+      const dadosParaLimpar = [
+        'problema',
+        'revisaoLiteratura', 
+        'baseDados',
+        'metodosColeta',
+        'softwares',
+        'obtido',
+        'tituloFluxo'
+      ];
+      
+      dadosParaLimpar.forEach(chave => {
+        localStorage.removeItem(chave);
+        console.log(`🗑️ Removido: ${chave}`);
+      });
+      
+      console.log('✅ Todos os dados foram limpos! Iniciando novo fluxo...');
+      
+      // Aguarda um pouco para garantir a limpeza e vai para a próxima página
+      setTimeout(() => {
+        window.location.href = 'metodologia0.html';
+      }, 300);
+    }
+
+    // 🔹 CONFIGURA O BOTÃO "COMEÇAR" PARA LIMPAR DADOS ANTES DE INICIAR
+    document.getElementById('btn-comecar').addEventListener('click', limparEIniciar);
+
+    // 🔹 TAMBÉM LIMPA DADOS QUANDO A PÁGINA CARREGA (PARA GARANTIR)
+    document.addEventListener('DOMContentLoaded', function() {
+      console.log('🚀 Página inicial carregada - garantindo ambiente limpo');
+      
+      // Limpa dados apenas se o usuário estiver voltando para começar um novo fluxo
+      // Isso evita limpar dados em uso durante um fluxo ativo
+      if (!window.location.hash) {
+        const dadosParaLimparRapidamente = ['revisaoLiteratura', 'tituloFluxo'];
+        dadosParaLimparRapidamente.forEach(chave => {
+          localStorage.removeItem(chave);
+        });
+      }
+    });
   </script>
 </body>
 </html>

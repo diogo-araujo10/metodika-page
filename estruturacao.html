@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Estruturação da Revisão de Literatura</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+
+    <h2>Estruturação da Revisão de Literatura</h2>
+
+    <form id="formEstrutura">
+      
+      <!-- 2.1 Tipos de fontes -->
+      <fieldset>
+        <legend>2.1. Tipos de fontes permitidas na revisão</legend>
+        <label><input type="checkbox" name="fontes" value="Artigos científicos"> Artigos científicos</label><br/>
+        <label><input type="checkbox" name="fontes" value="Teses"> Teses</label><br/>
+        <label><input type="checkbox" name="fontes" value="Dissertações"> Dissertações</label><br/>
+        <label><input type="checkbox" name="fontes" value="Livros"> Livros</label><br/>
+        <label><input type="checkbox" name="fontes" value="Revisões sistemáticas"> Revisões sistemáticas</label><br/>
+        <label><input type="checkbox" name="fontes" value="Documentos institucionais"> Documentos institucionais</label><br/>
+        <label><input type="checkbox" name="fontes" value="Normas técnicas"> Normas técnicas</label><br/>
+        <label><input type="checkbox" name="fontes" value="Relatórios governamentais"> Relatórios governamentais</label><br/>
+      </fieldset>
+
+      <br/>
+
+      <!-- 2.2 Abordagens teóricas -->
+      <fieldset>
+        <legend>2.2. Abordagens teóricas comuns</legend>
+        <label><input type="checkbox" name="abordagens" value="Empírico-analítica"> Empírico-analítica</label><br/>
+        <label><input type="checkbox" name="abordagens" value="Teórico-conceitual"> Teórico-conceitual</label><br/>
+        <label><input type="checkbox" name="abordagens" value="Sócio-crítica"> Sócio-crítica</label><br/>
+        <label><input type="checkbox" name="abordagens" value="Qualitativa interpretativa"> Qualitativa interpretativa</label><br/>
+        <label><input type="checkbox" name="abordagens" value="Quantitativa experimental"> Quantitativa experimental</label><br/>
+        <label><input type="checkbox" name="abordagens" value="Mista (quali-quanti)"> Mista (quali-quanti)</label><br/>
+        <label><input type="checkbox" name="abordagens" value="MCDA"> MCDA</label><br/>
+        <label><input type="checkbox" name="abordagens" value="Lean / gestão"> Lean / gestão</label><br/>
+        <label><input type="checkbox" name="abordagens" value="Saúde pública"> Saúde pública</label><br/>
+        <label><input type="checkbox" name="abordagens" value="Educação"> Educação</label><br/>
+      </fieldset>
+
+      <br/>
+
+      <!-- 2.3 Sugestões de palavras-chave -->
+      <label for="sugestoesArea">2.3. Sugestões de palavras-chave por área</label>
+      <textarea id="sugestoesArea" rows="2" maxlength="50" 
+        placeholder="Ex: Engenharia de Produção, Saúde, Educação, Administração, etc."></textarea>
+    
+        <div style="height: 1px;"></div>
+      <br/>
+      <button type="button" onclick="gerarEstrutura()">Gerar Texto</button>
+    </form>
+
+    <div id="resultado" class="resultado"></div>
+
+    <div class="navigation-buttons">
+      <button class="secondary-btn" onclick="window.location.href='metodologia.html'">
+        Próxima Página
+      </button>
+    </div>
+  </div>
+
+  <script src="script-estruturacao.js"></script>
+
+</body>
+</html>

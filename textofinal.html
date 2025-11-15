@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Resumo Completo</title>
+  <title>Resumo Compilado</title>
   <link rel="stylesheet" href="style.css" />
   <style>
     .texto-gerado {
@@ -150,13 +150,29 @@
     <h2>Resumo Completo da Pesquisa</h2>
     
     <div class="aviso">
-      <strong>⚠️ Atenção:</strong> Esta página mostra todos os textos gerados durante o preenchimento do formulário.
+      <strong>⚠️ Atenção:</strong> A metodologia apresentada neste estudo foi estruturada com o apoio da Metodika – Ferramenta Online de Apoio ao Desenvolvimento de Metodologia Científica, desenvolvida por Pereira et al. (2025). A plataforma orientou a definição do tipo de pesquisa, a seleção das estratégias metodológicas, a organização dos procedimentos de coleta e análise de dados, bem como a verificação da coerência interna entre problema, objetivos e métodos adotados
     </div>
 
     <div class="secao">
       <h3>🔍 Identificação do Problema</h3>
       <div id="resumoProblema" class="texto-gerado">
         <!-- Texto gerado na página 1 -->
+      </div>
+    </div>
+
+    <!-- NOVA SEÇÃO: Revisão de Literatura -->
+    <div class="secao">
+      <h3>📖 Delimitação da Revisão de Literatura</h3>
+      <div id="resumoRevisao" class="texto-gerado">
+        <!-- Texto gerado na página de Revisão de Literatura -->
+      </div>
+    </div>
+
+    <!-- NOVA SEÇÃO: Estruturação da Revisão -->
+    <div class="secao">
+      <h3>📖 Estruturação da Revisão de Literatura</h3>
+      <div id="resumoEstrutura" class="texto-gerado">
+        <!-- Texto gerado na página de Estruturação -->
       </div>
     </div>
 
@@ -206,7 +222,7 @@
     });
 
     function carregarResumos() {
-      // 1. Identificação do Problema - APENAS O TEXTO FORMATADO
+      // 1. Identificação do Problema
       const problema = localStorage.getItem('problema');
       if (problema) {
         document.getElementById('resumoProblema').innerHTML = 
@@ -218,7 +234,46 @@
           '<span style="color: #6c757d;">Nenhum problema foi identificado ainda.</span>';
       }
 
-      // 2. Metodologia - APENAS O TEXTO FORMATADO
+      // 2. Revisão de Literatura - NOVA
+      const revisaoData = localStorage.getItem('revisaoLiteratura');
+      if (revisaoData) {
+        const dados = JSON.parse(revisaoData);
+        document.getElementById('resumoRevisao').innerHTML = 
+          `A revisão de literatura foi iniciada com base no tema ${dados.temaCentral}, com foco nos subtemas ${dados.subtemas}. 
+          As buscas foram realizadas utilizando as palavras-chave ${dados.palavrasChave}, considerando publicações do período ${dados.periodo} e consultando as bases ${dados.basesDados}.`;
+      } else {
+        document.getElementById('resumoRevisao').innerHTML = 
+          '<span style="color: #6c757d;">Revisão de literatura não realizada ainda.</span>';
+      }
+
+      // 3. Estruturação da Revisão - NOVA
+      const estruturaData = localStorage.getItem('estruturacaoRevisao');
+      const textoEstrutura = localStorage.getItem('textoEstrutura');
+      if (textoEstrutura) {
+        document.getElementById('resumoEstrutura').innerHTML = textoEstrutura;
+      } else if (estruturaData) {
+        const dados = JSON.parse(estruturaData);
+        // Se não tiver o texto formatado, formata na hora
+        const fontesFormatadas = dados.fontes.length === 1 ? 
+          dados.fontes[0].toLowerCase() : dados.fontes.slice(0, -1).join(", ") + " e " + dados.fontes.slice(-1);
+        const abordagensFormatadas = dados.abordagens.length === 1 ? 
+          dados.abordagens[0].toLowerCase() : dados.abordagens.slice(0, -1).join(", ") + " e " + dados.abordagens.slice(-1);
+        
+        let texto = `Para orientar a estruturação da revisão de literatura, foram consideradas diferentes categorias de fontes, tais como ${fontesFormatadas}, além de abordagens teóricas como ${abordagensFormatadas}.`;
+        
+        if (dados.sugestoesArea) {
+          texto += ` O foco foi na área de ${dados.sugestoesArea}.`;
+        }
+        
+        texto += ` Essas escolhas contribuíram para uma análise consistente e alinhada às recomendações metodológicas da área, garantindo a qualidade e a representatividade dos estudos selecionados.`;
+        
+        document.getElementById('resumoEstrutura').innerHTML = texto;
+      } else {
+        document.getElementById('resumoEstrutura').innerHTML = 
+          '<span style="color: #6c757d;">Estruturação da revisão não definida ainda.</span>';
+      }
+
+      // 4. Metodologia
       const metodologia = localStorage.getItem('textoMetodologia');
       if (metodologia) {
         document.getElementById('resumoMetodologia').textContent = metodologia;
@@ -227,7 +282,7 @@
           '<span style="color: #6c757d;">Metodologia não definida ainda.</span>';
       }
 
-      // 3. Coleta de Dados - APENAS O TEXTO FORMATADO
+      // 5. Coleta de Dados
       const coleta = localStorage.getItem('textoColeta');
       if (coleta) {
         document.getElementById('resumoColeta').textContent = coleta;
@@ -236,7 +291,7 @@
           '<span style="color: #6c757d;">Dados de coleta não informados ainda.</span>';
       }
 
-      // 4. Análise dos Dados - APENAS O TEXTO FORMATADO
+      // 6. Análise dos Dados
       const softwares = JSON.parse(localStorage.getItem('softwares') || '[]');
       const parametros = JSON.parse(localStorage.getItem('parametros') || '[]');
       
@@ -256,7 +311,7 @@
           '<span style="color: #6c757d;">Análise de dados não realizada ainda.</span>';
       }
 
-      // 5. Resultados - APENAS O TEXTO FORMATADO
+      // 7. Resultados
       const obtido = localStorage.getItem('obtido');
       if (obtido) {
         document.getElementById('resumoResultados').innerHTML = 

@@ -66,3 +66,28 @@ button:hover {
   white-space: pre-line;
   color: #222;
 }
+
+/* Destaque para as perguntas */
+form label,
+fieldset legend {
+  font-weight: 700;
+  color: #2c3e50;
+  background-color: #f8f9fa;
+  padding: 12px 15px;
+  border-radius: 8px;
+  border-left: 4px solid #4CAF50;
+  margin-bottom: 15px;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Labels dentro do fieldset (respostas) NÃO recebem o destaque */
+fieldset label {
+  background: none;
+  padding: 0;
+  border: none;
+  margin-bottom: 5px;
+  font-weight: normal;
+  color: #333;
+}

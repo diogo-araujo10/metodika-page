@@ -13,7 +13,7 @@ function gerarTexto() {
     abordagem: {
       qualitativa: "centrada na compreensão de fenômenos subjetivos.",
       quantitativa: "mensurar e analisar a estatística dos dados.",
-      "quali-quanti": "combinar elementos das abordagens qualitativa e quantitativa.",
+      "quali-quantitativa": "combinar elementos das abordagens qualitativa e quantitativa.",
     },
     natureza: {
       básica: "gerar novos conhecimentos, sem aplicação imediata.",
@@ -28,10 +28,10 @@ function gerarTexto() {
       experimental: "envolve manipulação de variáveis em ambiente controlado.",
       bibliográfica: "baseada na análise de material já publicado.",
       documental: "analisa documentos que ainda não receberam tratamento analítico.",
-      campo: "realizada diretamente no local onde ocorre o fenômeno.",
+      "de campo": "realizada diretamente no local onde ocorre o fenômeno.",
       "ex-post-facto": "analisa fatos já ocorridos, sem intervenção direta do pesquisador.",
-      levantamento: "coleta dados diretamente com os participantes.",
-      survey: "utiliza questionários estruturados para coletar dados.",
+      "de levantamento": "coleta dados diretamente com os participantes.",
+      "com survey": "utiliza questionários estruturados para coletar dados.",
       "estudo de caso": "explora em profundidade um caso específico.",
       participante: "presença ativa do pesquisador no ambiente estudado.",
       ação: "visa intervir e transformar a realidade estudada.",
@@ -44,7 +44,7 @@ function gerarTexto() {
     `A presente pesquisa adota uma abordagem ${abordagem}, caracterizada por ${definicoes.abordagem[abordagem]} ` +
     `Quanto à sua natureza, trata-se de uma investigação ${natureza}, cuja finalidade é ${definicoes.natureza[natureza]} ` +
     `Em relação aos objetivos, a pesquisa classifica-se como ${objetivo}, pois ${definicoes.objetivo[objetivo]} ` +
-    `Para o alcance desses objetivos, foram adotados procedimentos metodológicos compatíveis com a proposta do estudo, sendo conduzida por meio de pesquisa ${procedimento}, o qual se define por ${definicoes.procedimento[procedimento]}.`;
+    `Para o alcance desses objetivos, foram adotados procedimentos metodológicos compatíveis com a proposta do estudo, sendo conduzida por meio de pesquisa ${procedimento}, o qual se define por ${definicoes.procedimento[procedimento]}`;
 
   const resultado = document.getElementById("resultado");
   resultado.innerText = texto;
@@ -52,3 +52,46 @@ function gerarTexto() {
 
   localStorage.setItem("textoMetodologia", texto);
 }
+
+// Função para limpar dados da metodologia quando o usuário navegar sem preencher
+function limparDadosMetodologia() {
+  localStorage.removeItem('textoMetodologia');
+  console.log('Dados de metodologia limpos!');
+}
+
+// Modificar o botão de próxima página para limpar os dados antes de navegar
+document.addEventListener('DOMContentLoaded', function() {
+  const btnProxima = document.querySelector('.secondary-btn');
+  if (btnProxima) {
+    // Remover o onclick direto do HTML e adicionar event listener
+    btnProxima.onclick = null;
+    btnProxima.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      // Verificar se o formulário foi preenchido
+      const abordagem = document.getElementById("abordagem").value;
+      const natureza = document.getElementById("natureza").value;
+      const objetivo = document.getElementById("objetivo").value;
+      const procedimento = document.getElementById("procedimento").value;
+      
+      // Se não preencheu nada, limpa os dados
+      if (!abordagem && !natureza && !objetivo && !procedimento) {
+        limparDadosMetodologia();
+      }
+      
+      window.location.href = 'metodologia2.html';
+    });
+  }
+});
+
+// Também limpar dados se o usuário recarregar a página sem preencher
+window.addEventListener('beforeunload', function() {
+  const abordagem = document.getElementById("abordagem").value;
+  const natureza = document.getElementById("natureza").value;
+  const objetivo = document.getElementById("objetivo").value;
+  const procedimento = document.getElementById("procedimento").value;
+  
+  if (!abordagem && !natureza && !objetivo && !procedimento) {
+    limparDadosMetodologia();
+  }
+});

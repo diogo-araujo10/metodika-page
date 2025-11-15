@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Revisão de Literatura</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+
+    <h2>Delimitação Revisão de Literatura</h2>
+
+    <form id="formRevisao">
+      <!-- Tema Central -->
+      <div class="form-group">
+        <label for="temaCentral">1. Qual é o tema central da sua pesquisa?</label>
+        <textarea id="temaCentral" rows="2" maxlength="35" 
+          placeholder="Máximo 35 caracteres" required></textarea>
+      </div>
+
+      <!-- Subtemas -->
+      <div class="form-group">
+        <label for="subtemas">2. Quais são os subtemas mais relevantes?</label>
+        <textarea id="subtemas" rows="2" maxlength="120" ></textarea>
+      </div>
+
+      <!-- Palavras-chave -->
+      <div class="form-group">
+        <label for="palavrasChave">3. Quais palavras-chave você está utilizando nas buscas?</label>
+        <textarea id="palavrasChave" rows="2" maxlength="100"  ></textarea>
+      </div>
+
+      <!-- Período -->
+      <div class="form-group">
+        <label for="periodo">4. Qual o período de publicação considerado?</label>
+        <textarea id="periodo" rows="2" maxlength="40" ></textarea>
+      </div>
+
+      <!-- Bases de dados -->
+      <div class="form-group">
+        <label for="basesDados">5. Quais bases de dados foram utilizadas?</label>
+        <textarea id="basesDados" rows="2" maxlength="100" ></textarea>
+      </div>
+
+      <button type="button" onclick="gerarRevisao()">Gerar Texto</button>
+    </form>
+
+    <div id="resultado"></div>
+
+    <div class="navigation-buttons">
+      <button class="secondary-btn" onclick="window.location.href='estruturacao.html'">
+        Próxima Página
+      </button>
+    </div>
+  </div>
+
+  <script src="script-revisao.js"></script>
+</body>
+</html>
