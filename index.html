@@ -195,10 +195,47 @@
       background: linear-gradient(90deg, rgba(255,255,255,0.06), rgba(255,255,255,0.00));
       opacity: 0.9;
     }
+
+    /* --- BOTÃO SOBRE NÓS --- */
+    .btn-sobre-nos {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      padding: 12px 24px;
+      font-size: 16px;
+      border-radius: 25px;
+      background: rgba(255, 255, 255, 0.15);
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+      text-decoration: none;
+      z-index: 1000;
+    }
+
+    .btn-sobre-nos:hover {
+      background: rgba(255, 255, 255, 0.25);
+      border-color: rgba(255, 255, 255, 0.5);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    /* Responsividade para o botão */
+    @media (max-width: 640px){
+      .btn-sobre-nos {
+        top: 15px;
+        right: 15px;
+        padding: 10px 18px;
+        font-size: 14px;
+      }
+    }
   </style>
 </head>
 
 <body>
+  <a href="sobre-nos.html" class="btn-sobre-nos">Sobre Nós</a>
   <div class="container" role="main" aria-labelledby="titulo">
     <img src="img/logoo.png" alt="Logo Metodika" class="logo-principal">
     <h1 id="titulo">METODIKA</h1>

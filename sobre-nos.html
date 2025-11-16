@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sobre Nós - METODIKA</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * { 
+      box-sizing: border-box; 
+      margin: 0; 
+      padding: 0; 
+    }
+    
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #1d3557, #457b9d, #a8dadc);
+      font-family: 'Segoe UI', Tahoma, sans-serif;
+      color: #fff;
+      padding: 80px 20px 40px;
+      overflow-x: hidden;
+    }
+
+    /* Partículas de fundo */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      animation: float 15s infinite linear;
+    }
+
+    @keyframes float {
+      0% {
+        transform: translateY(0) translateX(0) rotate(0deg);
+        opacity: 0;
+      }
+      10% {
+        opacity: 1;
+      }
+      90% {
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(-100vh) translateX(100px) rotate(360deg);
+        opacity: 0;
+      }
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      border-radius: 20px;
+      padding: 40px;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      animation: fadeInUp 0.8s ease-out;
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .titulo-container {
+      text-align: center;
+      margin-bottom: 40px;
+      overflow: hidden;
+    }
+
+    h1 {
+      display: inline-block;
+      font-size: 3em;
+      background: linear-gradient(90deg, #a8dadc, #f1faee, #a8dadc);
+      background-size: 200% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.1);
+      animation: shimmer 3s infinite linear, pulse 2s infinite ease-in-out;
+      position: relative;
+      padding-bottom: 10px;
+    }
+
+    h1::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, #a8dadc, transparent);
+      transform: scaleX(0);
+      animation: lineReveal 2s 0.5s forwards;
+    }
+
+    @keyframes shimmer {
+      0% {
+        background-position: -200% 0;
+      }
+      100% {
+        background-position: 200% 0;
+      }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.03);
+      }
+    }
+
+    @keyframes lineReveal {
+      to {
+        transform: scaleX(1);
+      }
+    }
+
+    .equipe {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+      margin-top: 40px;
+    }
+
+    .membro {
+      background: rgba(255, 255, 255, 0.05);
+      padding: 30px 25px;
+      border-radius: 20px;
+      text-align: center;
+      transition: all 0.4s ease;
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      animation: cardEntrance 0.6s ease-out;
+      animation-fill-mode: both;
+    }
+
+    .membro:nth-child(1) { animation-delay: 0.1s; }
+    .membro:nth-child(2) { animation-delay: 0.2s; }
+    .membro:nth-child(3) { animation-delay: 0.3s; }
+    .membro:nth-child(4) { animation-delay: 0.4s; }
+
+    @keyframes cardEntrance {
+      from {
+        opacity: 0;
+        transform: translateY(30px) scale(0.9);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+    }
+
+    .membro:hover {
+      transform: translateY(-10px);
+      background: rgba(255, 255, 255, 0.1);
+      box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+    }
+
+    .membro::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.7s;
+    }
+
+    .membro:hover::before {
+      left: 100%;
+    }
+
+    .foto-container {
+      width: 150px;
+      height: 150px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      overflow: hidden;
+      border: 3px solid #a8dadc;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+      position: relative;
+      transition: all 0.4s ease;
+    }
+
+    .foto-autor {
+     width: 100%;
+     height: 100%;
+     object-fit: cover;
+     object-position: center;
+     display: block;
+}
+
+    .membro:hover .foto-container {
+      transform: scale(1.05);
+      border-color: #f1faee;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    }
+
+    .foto-placeholder {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #457b9d, #a8dadc);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 3em;
+      font-weight: bold;
+    }
+
+    .membro h3 {
+      color: #f1faee;
+      margin-bottom: 8px;
+      font-size: 1.4em;
+    }
+
+    .funcao {
+      font-style: italic;
+      color: #a8dadc;
+      margin-bottom: 20px;
+      display: block;
+      font-size: 1em;
+    }
+
+    .redes-sociais {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    .rede-social {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.1);
+      color: white;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      font-size: 1.2em;
+    }
+
+    .rede-social:hover {
+      transform: translateY(-5px) scale(1.1);
+    }
+
+    .linkedin:hover {
+      background: #0077b5;
+      box-shadow: 0 5px 15px rgba(0, 119, 181, 0.4);
+    }
+
+    .instagram:hover {
+      background: #e4405f;
+      box-shadow: 0 5px 15px rgba(228, 64, 95, 0.4);
+    }
+
+    .lattes:hover {
+      background: #1d3557;
+      box-shadow: 0 5px 15px rgba(29, 53, 87, 0.4);
+    }
+
+    .sobre-projeto {
+      margin-top: 60px;
+      padding: 30px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 15px;
+      border-left: 4px solid #a8dadc;
+      animation: fadeIn 1s ease-out 0.5s both;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .sobre-projeto h3 {
+      color: #a8dadc;
+      margin-bottom: 15px;
+      font-size: 1.5em;
+    }
+
+    .sobre-projeto p {
+      line-height: 1.6;
+      font-size: 1.1em;
+    }
+
+    @media (max-width: 768px) {
+      .container { 
+        padding: 30px 20px; 
+      }
+      
+      h1 { 
+        font-size: 2.2em; 
+      }
+      
+      .equipe {
+        grid-template-columns: 1fr;
+      }
+      
+      .foto-container {
+        width: 120px;
+        height: 120px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Partículas de fundo -->
+  <div class="particles" id="particles"></div>
+  
+  <div class="container">
+    <div class="titulo-container">
+      <h1>Sobre Nós</h1>
+    </div>
+    
+    <div class="equipe">
+      <!-- Autor 1 -->
+      <div class="membro">
+        <div class="foto-container">
+          <img src="img/Moura.jpeg" alt="Daniel Moura" class="foto-autor">
+        </div>
+        <h3>Daniel Moura</h3>
+        <div class="redes-sociais">
+          <a href="https://www.linkedin.com/in/prof-dr-daniel-moura-37198913b/" class="rede-social linkedin" title="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://www.instagram.com/professordanielmoura/" class="rede-social instagram" title="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="http://lattes.cnpq.br/5889152523620761" class="rede-social lattes" title="Lattes">
+            <i class="fas fa-graduation-cap"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Autor 2 -->
+      <div class="membro">
+        <div class="foto-container">
+          <img src="img/Diogo.jpeg" alt="Diogo Araújo" class="foto-autor">
+        </div>
+        <h3>Diogo Araújo</h3>
+        <div class="redes-sociais">
+          <a href="https://www.linkedin.com/in/diogo-sebasti%C3%A3o-pereira-ara%C3%BAjo-15019b353/" class="rede-social linkedin" title="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="https://lattes.cnpq.br/1408336484187834" class="rede-social lattes" title="Lattes">
+            <i class="fas fa-graduation-cap"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Autor 3 -->
+      <div class="membro">
+        <div class="foto-container">
+          <img src="img/Bruno.png" alt="Bruno Diniz" class="foto-autor">
+        </div>
+        <h3>Bruno Diniz</h3>
+        <div class="redes-sociais">
+          <a href="https://www.linkedin.com/in/bruno-pereira-diniz-13a303214/" class="rede-social linkedin" title="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="http://lattes.cnpq.br/9664677647691745" class="rede-social lattes" title="Lattes">
+            <i class="fas fa-graduation-cap"></i>
+          </a>
+        </div>
+      </div>
+
+      <!-- Autor 4 -->
+      <div class="membro">
+        <div class="foto-container">
+          <img src="img/Jamily.jpeg" alt="Jamily Santos" class="foto-autor">
+        </div>
+        <h3>Jamily Santos</h3>
+        <div class="redes-sociais">
+          <a href="https://www.linkedin.com/in/jamily-ferreira-dos-santos-277b04340/" class="rede-social linkedin" title="LinkedIn">
+            <i class="fab fa-linkedin-in"></i>
+          </a>
+          <a href="http://lattes.cnpq.br/7929106858909429" class="rede-social lattes" title="Lattes">
+            <i class="fas fa-graduation-cap"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <div class="sobre-projeto">
+      <h3>Sobre o METODIKA</h3>
+      <p>...</p>
+      <p style="margin-top: 15px;">...</p>
+    </div>
+  </div>
+
+  <script>
+    // Criar partículas animadas
+    function createParticles() {
+      const particlesContainer = document.getElementById('particles');
+      const particleCount = 20;
+      
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.classList.add('particle');
+        
+        // Tamanho aleatório
+        const size = Math.random() * 20 + 5;
+        particle.style.width = `${size}px`;
+        particle.style.height = `${size}px`;
+        
+        // Posição inicial aleatória
+        particle.style.left = `${Math.random() * 100}vw`;
+        particle.style.top = `${Math.random() * 100}vh`;
+        
+        // Duração e delay aleatórios
+        const duration = Math.random() * 20 + 15;
+        const delay = Math.random() * 5;
+        particle.style.animationDuration = `${duration}s`;
+        particle.style.animationDelay = `${delay}s`;
+        
+        particlesContainer.appendChild(particle);
+      }
+    }
+    
+    // Inicializar partículas quando a página carregar
+    document.addEventListener('DOMContentLoaded', createParticles);
+  </script>
+</body>
+</html>
